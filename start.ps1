@@ -8,9 +8,12 @@ if (-not (Test-Path -LiteralPath $config)) {
 }
 $models = @(Get-ChildItem -LiteralPath (Join-Path $root 'models') -Filter '*.onnx' -File)
 if ($models.Count -ne 1) { throw 'Place exactly one ONNX model in the models folder.' }
-$python = (& py -3.12 -c 'import sys; print(sys.executable)' 2>$null)
-if ($LASTEXITCODE -ne 0 -or -not $python) { throw 'Python 3.12 is required; install it and ensure py.exe is available.' }
-$python = $python.Trim()
+$python = Join-Path $root '.venv\Scripts\python.exe'
+if (-not (Test-Path -LiteralPath $python)) {
+    $python = (& py -3.12 -c 'import sys; print(sys.executable)' 2>$null)
+    if ($LASTEXITCODE -ne 0 -or -not $python) { throw 'Python 3.12 is required; run 一键安装.cmd first.' }
+    $python = $python.Trim()
+}
 $pythonw = Join-Path (Split-Path -Parent $python) 'pythonw.exe'
 if (-not (Test-Path -LiteralPath $pythonw)) { throw "Missing pythonw.exe beside $python" }
 $active = @(Get-CimInstance Win32_Process | Where-Object {

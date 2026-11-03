@@ -9,3 +9,5 @@ miss_samples/
 *.png
 *.jpg
 models/*.onnx
+.venv/
+*.download

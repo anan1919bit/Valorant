@@ -1,3 +1,5 @@
-Place one compatible 640x640 ONNX model here. The current parser expects YOLO-style
-output [1, 9, N], with body class 0 and head class 1. Model weights are not
-part of the source release; obtain and redistribute them under their own terms.
+Run 一键安装.cmd at the repository root to download the verified ONNX model here.
+The release asset is a 640x640, five-class YOLO-style model with output
+[1, 9, 8400]. The application uses body class 0 and head class 1 only.
+Do not place multiple .onnx files in this folder.
+See ../MODEL.md for the model hash, metadata, and license details.

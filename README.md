@@ -1,8 +1,14 @@
-# VisionHID V0.4
+# 无畏契约单机 AI 自瞄｜VisionHID v0.4.1
 
-Windows 本地屏幕目标检测与 ESP32-S3 USB HID 鼠标控制实验。V0.4 基于 V0.3；旧版目录与 ZIP 均未改动。
+面向本地训练场景的 Windows 视觉目标检测与 ESP32-S3 USB HID 鼠标控制实验。识别亮黄色人形目标，以身体框维持目标身份，并在头部、身体和混合瞄点间切换。V0.4.1 增加模型下载与一键安装；瞄准算法和原有参数保持 V0.4 基线。
 
-项目背景、技术栈与处理流程见 [项目介绍.md](项目介绍.md)。
+项目背景与技术栈见 [项目介绍.md](项目介绍.md)；模型结构与准度设计见 [MODEL.md](MODEL.md)。
+
+## 一键安装
+
+在 Windows 安装 Python 3.12 后，克隆仓库或下载本版本源码包，双击 `一键安装.cmd`。脚本创建 `.venv`、安装固定版本依赖、从 [v0.4.1 发布页](https://github.com/anan1919bit/VisionHID/releases/tag/v0.4.1)下载模型、核验 SHA-256，并生成个人 `config.ini`。已有配置不会被覆盖。使用自己的 AI 编程工具安装时，复制 [AI_INSTALL.md](AI_INSTALL.md) 中的提示词即可。
+
+安装脚本不自动烧录 ESP32，也不自动配置 CUDA/cuDNN。运行前在 `config.ini` 中填写当前串口；留空时仅检测、不发送 HID 移动。
 
 ## V0.4 变化
 
@@ -32,7 +38,7 @@ Windows 本地屏幕目标检测与 ESP32-S3 USB HID 鼠标控制实验。V0.4 �
 
 ## 当前能力
 
-- dxcam 截取屏幕中央 960×960，ONNX Runtime GPU 推理 640×640 的身体/头部双类别模型，NMS 后选择目标。
+- dxcam 截取屏幕中央 960×960，ONNX Runtime GPU 推理 640×640 的 ONNX 模型；模型输出 5 类，程序只读取类别 0（身体）和 1（头部），分别做 NMS 后选择目标。
 - 跟踪同一目标；真实检测框正常驱动，短暂漏检时仅对已确认目标做最多两帧的限幅预测移动，预测框不用于点击。
 - 蹲姿瞄点修正、动态提前量、黄色高亮候选裁剪复检、头/身混合模式、半透明状态悬浮条和参数 UI。
 - ESP32-S3 接收 `M,dx,dy\n` 相对移动；固件也实现 `P\n` 和 `C\n`，但本版本默认不自动点击。
@@ -40,9 +46,9 @@ Windows 本地屏幕目标检测与 ESP32-S3 USB HID 鼠标控制实验。V0.4 �
 
 ## 快速开始
 
-1. 在 Windows 安装 Python 3.12，运行 `py -3.12 -m pip install -r requirements.txt`。GPU 推理需可用的 CUDA/cuDNN 环境。
-2. 将兼容模型放进 `models`，目录里只留一个 `.onnx`。预期输入 `[1,3,640,640]`，输出 `[1,9,N]`，类别 0 为身体、1 为头部。模型权重没有包含在源码包中。
-3. 双击 `启动 VisionHID.cmd`。首次启动会从 `config.example.ini` 生成 `config.ini`。将其中 `device.port` 填为当前 ESP32 串口（例如 `COM4`）；留空则只运行检测，不输出 HID 移动。
+1. 在 Windows 安装 Python 3.12，双击 `一键安装.cmd`；GPU 推理仍需可用的 CUDA/cuDNN 环境。
+2. 脚本自动下载经过 SHA-256 核验的模型到 `models`。预期输入 `[1,3,640,640]`、输出 `[1,9,8400]`；程序仅使用类别 0/1。
+3. 双击 `启动 VisionHID.cmd`。在 `config.ini` 中将 `device.port` 填为当前 ESP32 串口（例如 `COM4`）；留空则只运行检测，不输出 HID 移动。
 4. `config.ini` 的 `device.window_title` 留空时不检查前台窗口标题；填入标题时才要求精确匹配。当前本机配置已留空，但源码包示例仍是 `VALORANT`。`aim_calib.json` 缺失时使用检测区中心，个人校准文件不进入源码包。
 5. 运行日志在 `run.log` / `error.log`。运行前关闭原 V4/V5 进程，避免同时占用串口和 GPU。
 
@@ -59,4 +65,4 @@ Windows 本地屏幕目标检测与 ESP32-S3 USB HID 鼠标控制实验。V0.4 �
 
 `py -3.12 -m unittest discover -s src -p "test_*.py"` 运行离线测试。当前分发版仍需在不同电脑、模型、串口和游戏设置上实测。中远距离的小目标仍可能漏检，颜色哨兵也可能提出未被模型确认的候选；降低置信度不一定能解决这些情况。
 
-源码按 MIT 发布；模型权重、游戏资产、个人截图与校准文件不在许可范围内，也不包含在此包中。
+本仓库源码与发布页模型按 AGPL-3.0 发布；模型元数据原本标注 Ultralytics AGPL-3.0。源码包不内嵌模型，安装脚本从发布页下载；游戏资产、个人截图、配置与校准文件均未上传。模型训练数据和其他类别名称未独立核验，详见 [MODEL.md](MODEL.md)。
