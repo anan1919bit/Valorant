@@ -1,0 +1,4 @@
+dxcam==0.3.0
+numpy==2.4.6
+opencv-python==4.13.0.92
+onnxruntime-gpu==1.31.0

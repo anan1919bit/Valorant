@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.log
+config.ini
+config.baseline.ini
+aim_calib.json
+miss_samples/
+*.mp4
+*.png
+*.jpg
+models/*.onnx
