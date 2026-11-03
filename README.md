@@ -1,12 +1,12 @@
-# 无畏契约单机 AI 自瞄｜VisionHID v0.4.1
+# 无畏契约单机 AI 自瞄｜VisionHID v0.4.2
 
-面向本地训练场景的 Windows 视觉目标检测与 ESP32-S3 USB HID 鼠标控制实验。识别亮黄色人形目标，以身体框维持目标身份，并在头部、身体和混合瞄点间切换。V0.4.1 增加模型下载与一键安装；瞄准算法和原有参数保持 V0.4 基线。
+面向本地训练场景的 Windows 视觉目标检测与 ESP32-S3 USB HID 鼠标控制实验。识别亮黄色人形目标，以身体框维持目标身份，并在头部、身体和混合瞄点间切换。V0.4.2 提供模型下载与经过 Windows PowerShell 5.1 实测的一键安装；瞄准算法和原有参数保持 V0.4 基线。
 
 项目背景与技术栈见 [项目介绍.md](项目介绍.md)；模型结构与准度设计见 [MODEL.md](MODEL.md)。
 
 ## 一键安装
 
-在 Windows 安装 Python 3.12 后，克隆仓库或下载本版本源码包，双击 `一键安装.cmd`。脚本创建 `.venv`、安装固定版本依赖、从 [v0.4.1 发布页](https://github.com/anan1919bit/VisionHID/releases/tag/v0.4.1)下载模型、核验 SHA-256，并生成个人 `config.ini`。已有配置不会被覆盖。使用自己的 AI 编程工具安装时，复制 [AI_INSTALL.md](AI_INSTALL.md) 中的提示词即可。
+在 Windows 安装 Python 3.12 后，克隆仓库或下载本版本源码包，双击 `一键安装.cmd`。脚本创建 `.venv`、安装固定版本依赖、从 [v0.4.2 发布页](https://github.com/anan1919bit/VisionHID/releases/tag/v0.4.2)下载模型、核验 SHA-256，并生成个人 `config.ini`。已有配置不会被覆盖。使用自己的 AI 编程工具安装时，复制 [AI_INSTALL.md](AI_INSTALL.md) 中的提示词即可。
 
 安装脚本不自动烧录 ESP32，也不自动配置 CUDA/cuDNN。运行前在 `config.ini` 中填写当前串口；留空时仅检测、不发送 HID 移动。
 

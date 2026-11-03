@@ -1,10 +1,10 @@
-param([switch]$VerifyOnly)
+﻿param([switch]$VerifyOnly)
 
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $modelDir = Join-Path $root 'models'
 $modelPath = Join-Path $modelDir 'visionhid-val-yellow-v11s-640.onnx'
-$modelUrl = 'https://github.com/anan1919bit/VisionHID/releases/download/v0.4.1/visionhid-val-yellow-v11s-640.onnx'
+$modelUrl = 'https://github.com/anan1919bit/VisionHID/releases/download/v0.4.2/visionhid-val-yellow-v11s-640.onnx'
 $modelSha256 = 'D3FCE9CE6D747787DEA397A5B24FEE00075EEE4DD4D20AA5FE4DC74A87C75E7D'
 $venvPython = Join-Path $root '.venv\Scripts\python.exe'
 
@@ -49,8 +49,9 @@ if (-not $VerifyOnly) {
     & $venvPython -m pip install -r (Join-Path $root 'requirements.txt')
     if ($LASTEXITCODE -ne 0) { throw 'Dependency installation failed.' }
 }
-& $venvPython -c 'import cv2, dxcam, numpy, onnxruntime; print("Python dependencies OK")'
+& $venvPython -c 'import cv2, dxcam, numpy, onnxruntime'
 if ($LASTEXITCODE -ne 0) { throw 'Python dependency verification failed.' }
+Write-Host 'Python dependencies OK'
 
 $configPath = Join-Path $root 'config.ini'
 if (-not (Test-Path -LiteralPath $configPath)) {
