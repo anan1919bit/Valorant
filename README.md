@@ -4,6 +4,14 @@
 
 项目背景与技术栈见 [项目介绍.md](项目介绍.md)；模型结构与准度设计见 [MODEL.md](MODEL.md)。
 
+## 演示视频
+
+以下为用户提供的原始游戏录屏，保留原画面与声音；视频本身不作为识别准确率或端到端延迟的量化测试。
+
+- [演示 01（15 秒）](demos/demo-01.mp4)
+- [演示 02（12 秒）](demos/demo-02.mp4)
+- [演示 03（8 秒）](demos/demo-03.mp4)
+
 ## 一键安装
 
 在 Windows 安装 Python 3.12 后，克隆仓库或下载本版本源码包，双击 `一键安装.cmd`。脚本创建 `.venv`、安装固定版本依赖、从 [v0.4.2 发布页](https://github.com/anan1919bit/VisionHID/releases/tag/v0.4.2)下载模型、核验 SHA-256，并生成个人 `config.ini`。已有配置不会被覆盖。使用自己的 AI 编程工具安装时，复制 [AI_INSTALL.md](AI_INSTALL.md) 中的提示词即可。
