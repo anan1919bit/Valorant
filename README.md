@@ -8,9 +8,18 @@
 
 以下为用户提供的原始游戏录屏，保留原画面与声音；视频本身不作为识别准确率或端到端延迟的量化测试。
 
-- [演示 01（15 秒）](demos/demo-01.mp4)
-- [演示 02（12 秒）](demos/demo-02.mp4)
-- [演示 03（8 秒）](demos/demo-03.mp4)
+### 演示 01 · 15 秒
+
+https://github.com/user-attachments/assets/dfaf89c7-455d-4070-ba38-ba87b54909db
+
+### 演示 02 · 12 秒
+
+https://github.com/user-attachments/assets/577f3bc8-5270-4f2d-9eaa-72ba48968134
+
+### 演示 03 · 8 秒
+
+https://github.com/user-attachments/assets/07057040-363c-4cec-9ac1-99c9c002c747
+
 
 ## 一键安装
 
